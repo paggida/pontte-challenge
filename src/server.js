@@ -2,21 +2,15 @@ const express = require("express");
 const cors = require("cors");
 const youch = require("youch");
 const appConfig = require("./config/app");
-const databaseConfig = require("./config/database");
 
 class App {
   constructor() {
     this.express = express();
 
-    this.database();
     this.middlewares();
     this.security();
     this.routes();
     this.exception();
-  }
-
-  database() {
-    databaseConfig.startDataBase();
   }
   middlewares() {
     this.express.use(express.json());
