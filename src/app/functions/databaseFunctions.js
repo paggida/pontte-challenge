@@ -1,4 +1,49 @@
-const { promisify } = require("util");
-const error = require("../Exceptions/databaseExceptions");
+const e = require("../Exceptions/apiExceptions");
+const dbErrorTable = require("../Exceptions/databaseExceptions");
 
-module.exports = {};
+module.exports = {
+  async insert(record, model) {
+    try{
+      if(_isValidModel(model)){
+        return await model.create(record)
+      }else{
+        return e.throwException(5, dbErrorTable)
+      }
+    }
+    catch(err){
+      return e.throwException(1, dbErrorTable)
+    }
+  },
+  async findById(id, model) {
+    try{
+        if(_isValidModel(model)){
+          return await model.findByPk(id)
+        }else{
+          return e.throwException(5, dbErrorTable)
+        }
+    }
+    catch(err){
+      return e.throwException(2, dbErrorTable)
+    }
+  },
+  async delete(id, model) {
+    try{
+        if(_isValidModel(model)){
+          return await model.destroy({ where: { id } })
+        }else{
+          return e.throwException(5, dbErrorTable)
+        }
+    }
+    catch(err){
+      return e.throwException(4, dbErrorTable)
+    }
+  },
+};
+
+_isValidModel=model=>{
+  if (typeof(model)!=='function') return false
+  if (typeof(model.create)!=='function') return false
+  if (typeof(model.findByPk)!=='function') return false
+  if (typeof(model.destroy)!=='function') return false
+  return true
+};
