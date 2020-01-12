@@ -1,10 +1,7 @@
-const e = require("../Exceptions/apiExceptions");
-const errorTable = require("../Exceptions/contractExceptions");
-
 module.exports = {
    removeInvalidFields(obj) {
       for (let key in obj) {
-        if(!obj[key] && obj[key]!=false) delete obj[key];
+        if(!obj[key] || obj[key]===false) delete obj[key];
       }
       return obj;
   },
@@ -26,7 +23,7 @@ _areRequiredFieldsExist=(obj)=>{
 _areRequiredFieldsFilled=(obj)=>{
   const valueFieldsArray = Object.values(obj)
   for (let value in valueFieldsArray) {
-    if(!value && value!=false) return false;
+    if(!value || value===false) return false;
   }
   return true;
 }
