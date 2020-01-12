@@ -1,17 +1,25 @@
-const appConfig = require("../../config/app");
+const { Contract } = require('../models');
+const fnc = require("../functions/contractFunctions");
 const db = require("../functions/databaseFunctions");
+const e = require("../Exceptions/apiExceptions");
+const contractErrorTable = require("../Exceptions/contractExceptions");
 
 module.exports = {
   async listById(req, res) {
-    const { id } = req.params
-    return res.send(`route: listById ref: ${id}`)
+    const { id } = req.params;
+    return res.send(`route: listById ref: ${id}`);
   },
   async listByCpf(req, res) {
-    const { cpf } = req.params
-    return res.send(`route: listByCpf ref: ${cpf}`)
+    const { cpf } = req.params;
+    return res.send(`route: listByCpf ref: ${cpf}`);
   },
   async creation(req, res) {
-    return res.send(`route: creation ref: ${JSON.stringify(req.body)}`)
+    const cleanBody = fnc.removeInvalidFields(req.body);
+    const completeBody = fnc.addStatusNewContract(cleanBody);
+    const response = (fnc.isRequiredFieldsCorrect(completeBody))?
+                      await db.insert(completeBody, Contract) :
+                      e.throwException(1, contractErrorTable)
+    return res.json(response);
   },
   async update(req, res) {
     const { id } = req.params
