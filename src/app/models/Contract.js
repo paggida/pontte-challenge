@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Contract = sequelize.define("contract", {
+  const Contract = sequelize.define("Contract", {
     client_name: DataTypes.STRING,
     client_email: DataTypes.STRING,
     client_cpf: DataTypes.INTEGER,
