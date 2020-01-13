@@ -47,3 +47,7 @@ _isValidModel=model=>{
   if (typeof(model.destroy)!=='function') return false
   return true
 };
+
+_addSuccessStatus=(response)=>({...response, status: 0});
+
+

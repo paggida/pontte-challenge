@@ -13,13 +13,13 @@ describe('Validation to endpoint "/contract/new"', () => {
       client_name: 'José',
       client_email: 'jose@ig.com.br',
       client_cpf: '99999999999',
-      value: 1000.01,
+      contract_value: 1000.01,
     });
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('id');
     expect(response.body).toHaveProperty('client_name', 'José');
     expect(response.body).toHaveProperty('client_email', 'jose@ig.com.br');
     expect(response.body).toHaveProperty('client_cpf', '99999999999');
-    expect(response.body).toHaveProperty('value', 1000.01);
+    expect(response.body).toHaveProperty('contract_value', 1000.01);
   });
 });

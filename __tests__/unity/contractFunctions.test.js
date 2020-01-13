@@ -22,7 +22,7 @@ describe('AddStatusNewContract function validation', () => {
       field04: false,
     };
     const responseObj = fnc.addStatusNewContract(object)
-    expect(responseObj).toHaveProperty('status',0);
+    expect(responseObj).toHaveProperty('contract_step',0);
   });
 });
 
@@ -32,7 +32,7 @@ describe('isRequiredFieldsCorrect function validation', () => {
       client_name: 'José',
       client_email: 'jose@ig.com.br',
       client_cpf: '99999999999',
-      value: 1000.00,
+      contract_value: 1000.00,
       active: false
     };
     const response = fnc.isRequiredFieldsCorrect(object)
@@ -52,7 +52,7 @@ describe('isRequiredFieldsCorrect function validation', () => {
       client_name: 'José',
       client_email: 'jose@ig.com.br',
       client_cpf: '',
-      value: 1000.00,
+      contract_value: 1000.00,
     };
     const response = fnc.isRequiredFieldsCorrect(object)
     expect(response).toBeFalsy();

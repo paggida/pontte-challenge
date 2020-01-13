@@ -11,7 +11,7 @@ describe('Insert function validation', () => {
       client_name: 'José',
       client_email: 'jose@ig.com.br',
       client_cpf: '99999999999',
-      value: 1000.01,
+      contract_value: 1000.01,
     };
     const completeRecord = contractFnc.addStatusNewContract(newRecord)
     const response = await db.insert(completeRecord, Contract)
@@ -19,14 +19,14 @@ describe('Insert function validation', () => {
     expect(response).toHaveProperty('client_name', 'José');
     expect(response).toHaveProperty('client_email', 'jose@ig.com.br');
     expect(response).toHaveProperty('client_cpf', '99999999999');
-    expect(response).toHaveProperty('value', 1000.01);
+    expect(response).toHaveProperty('contract_value', 1000.01);
   });
   it('should not be able to add a new record in a nonexistent table', async () => {
     const newRecord = {
       client_name: 'José',
       client_email: 'jose@ig.com.br',
       client_cpf: '99999999999',
-      value: 1000.01,
+      contract_value: 1000.01,
     };
     const completeRecord = contractFnc.addStatusNewContract(newRecord)
     const response = await db.insert(completeRecord, {})
@@ -42,7 +42,7 @@ describe('Delete function validation', () => {
       client_name: 'José',
       client_email: 'jose@ig.com.br',
       client_cpf: '99999999999',
-      value: 1000.01,
+      contract_value: 1000.01,
     };
     const completeRecord = contractFnc.addStatusNewContract(newRecord)
     const { id: newId } = await db.insert(completeRecord, Contract)
@@ -67,7 +67,7 @@ describe('FindById function validation', () => {
       client_name: 'José',
       client_email: 'jose@ig.com.br',
       client_cpf: '99999999999',
-      value: 1000.01,
+      contract_value: 1000.01,
     };
     const completeRecord = contractFnc.addStatusNewContract(newRecord)
     const { id: newId } = await db.insert(completeRecord, Contract)

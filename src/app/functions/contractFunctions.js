@@ -6,7 +6,7 @@ module.exports = {
       return obj;
   },
   addStatusNewContract(obj={}) {
-    return ({...obj, status: 0});
+    return ({...obj, contract_step: 0});
   },
   isRequiredFieldsCorrect(obj={}){
     return (_areRequiredFieldsExist(obj) && _areRequiredFieldsFilled(obj))
@@ -17,7 +17,7 @@ _areRequiredFieldsExist=(obj)=>{
   if(fieldsArray.indexOf('client_name')<0 ||
      fieldsArray.indexOf('client_email')<0 ||
      fieldsArray.indexOf('client_cpf')<0 ||
-     fieldsArray.indexOf('value')<0) return false;
+     fieldsArray.indexOf('contract_value')<0) return false;
   return true;
 }
 _areRequiredFieldsFilled= (obj)=>{
