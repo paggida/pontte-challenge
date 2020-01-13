@@ -16,9 +16,9 @@ module.exports = {
   async creation(req, res) {
     const cleanBody = fnc.removeInvalidFields(req.body);
     const completeBody = fnc.addStatusNewContract(cleanBody);
-    const response = (fnc.isRequiredFieldsCorrect(completeBody))?
+    const response = (fnc.isRequiredFieldsCorrect(cleanBody))?
                       await db.insert(completeBody, Contract) :
-                      e.throwException(1, contractErrorTable)
+                      e.throwAppException(1, contractErrorTable)
     return res.json(response);
   },
   async update(req, res) {

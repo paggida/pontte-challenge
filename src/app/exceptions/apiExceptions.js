@@ -1,11 +1,11 @@
 module.exports = {
-  throwException(errorObject) {
+  throwApiException(errorObject) {
     const message = errorObject.message
       ? errorObject.message
       : 'Unknown error accessing external API.';
     return { status: 500, message, type: 'API' };
   },
-  throwException(errorCode, errorTable={}) {
+  throwAppException(errorCode, errorTable={}) {
     const { name: type , data: errorData } = errorTable
     const validatedException = _isValidException(errorCode, type, errorData);
     const validateCode = _isErrorCode(errorCode)? errorCode : 'X';

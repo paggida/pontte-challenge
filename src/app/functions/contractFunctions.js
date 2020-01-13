@@ -1,7 +1,7 @@
 module.exports = {
    removeInvalidFields(obj) {
       for (let key in obj) {
-        if(!obj[key] || obj[key]===false) delete obj[key];
+        if(!obj[key] && obj[key]!==false) delete obj[key];
       }
       return obj;
   },
@@ -10,7 +10,7 @@ module.exports = {
   },
   isRequiredFieldsCorrect(obj={}){
     return (_areRequiredFieldsExist(obj) && _areRequiredFieldsFilled(obj))
-  }
+  },
 };
 _areRequiredFieldsExist=(obj)=>{
   const fieldsArray = Object.keys(obj)
@@ -20,10 +20,14 @@ _areRequiredFieldsExist=(obj)=>{
      fieldsArray.indexOf('value')<0) return false;
   return true;
 }
-_areRequiredFieldsFilled=(obj)=>{
+_areRequiredFieldsFilled= (obj)=>{
   const valueFieldsArray = Object.values(obj)
-  for (let value in valueFieldsArray) {
-    if(!value || value===false) return false;
-  }
-  return true;
+  let response = true
+  for (let i = 0; i < valueFieldsArray.length; i++) {
+    if(!valueFieldsArray[i] && valueFieldsArray[i]!==false) {
+      response = false;
+      break;
+    }
+ }
+ return response;
 }

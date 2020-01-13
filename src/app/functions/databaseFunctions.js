@@ -7,11 +7,11 @@ module.exports = {
       if(_isValidModel(model)){
         return await model.create(record)
       }else{
-        return e.throwException(5, dbErrorTable)
+        return e.throwAppException(5, dbErrorTable)
       }
     }
     catch(err){
-      return e.throwException(1, dbErrorTable)
+      return e.throwAppException(1, dbErrorTable)
     }
   },
   async findById(id, model) {
@@ -19,11 +19,11 @@ module.exports = {
         if(_isValidModel(model)){
           return await model.findByPk(id)
         }else{
-          return e.throwException(5, dbErrorTable)
+          return e.throwAppException(5, dbErrorTable)
         }
     }
     catch(err){
-      return e.throwException(2, dbErrorTable)
+      return e.throwAppException(2, dbErrorTable)
     }
   },
   async delete(id, model) {
@@ -31,11 +31,11 @@ module.exports = {
         if(_isValidModel(model)){
           return await model.destroy({ where: { id } })
         }else{
-          return e.throwException(5, dbErrorTable)
+          return e.throwAppException(5, dbErrorTable)
         }
     }
     catch(err){
-      return e.throwException(4, dbErrorTable)
+      return e.throwAppException(4, dbErrorTable)
     }
   },
 };

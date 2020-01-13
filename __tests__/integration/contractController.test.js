@@ -4,9 +4,9 @@ const { Contract } = require('../../src/app/models');
 
 describe('Validation to endpoint "/contract/new"', () => {
   afterAll(async () => {
-    Contract.destroy({ where: { client_cpf: '99999999999' } })
+    await Contract.destroy({ where: { client_cpf: '99999999999' } })
   });
-  it('should be able to add a new contract', () => {
+  it('should be able to add a new contract', async () => {
     const response = await request(app)
     .post('/contract/new')
     .send({

@@ -2,7 +2,7 @@ const e = require('../../src/app/Exceptions/apiExceptions');
 
 describe('Validation apiExceptions.js', () => {
   it('should be able to send a custom error message', () => {
-    const response = e.throwException({
+    const response = e.throwApiException({
       name: 'Error',
       message: 'Custom Message'
     });
@@ -11,37 +11,37 @@ describe('Validation apiExceptions.js', () => {
     expect(response).toHaveProperty('message','Custom Message');
   });
   it('should be able to send an unknown error message', () => {
-    const response = e.throwException({});
+    const response = e.throwApiException({});
     expect(response).toHaveProperty('status',500);
     expect(response).toHaveProperty('type','API');
     expect(response).toHaveProperty('message','Unknown error accessing external API.');
   });
-  it('should be able to send error message of an existing reference table', () => {
+  it('should be able to send error message of an existent reference table', () => {
     const referenceTable = {
       name: 'refTable',
       data: [
         { status: 1, message: 'Error message.' }
       ]
     }
-    const response = e.throwException(1, referenceTable);
+    const response = e.throwAppException(1, referenceTable);
     expect(response).toHaveProperty('status',1);
     expect(response).toHaveProperty('type','refTable');
     expect(response).toHaveProperty('message','Error message.');
   });
-  it('should not be able to send error message of an inexisting reference table', () => {
-    const response = e.throwException(1, {});
+  it('should not be able to send error message of an unknown reference table', () => {
+    const response = e.throwAppException(1, {});
     expect(response).toHaveProperty('status',1);
     expect(response).toHaveProperty('type','Unknown error type');
     expect(response).toHaveProperty('message','Unknown error code.');
   });
-  it('should not be able to send an unknown error message of an existing reference table', () => {
+  it('should not be able to send an unknown error message of an existent reference table', () => {
     const referenceTable = {
       name: 'refTable',
       data: [
         { status: 1, message: 'Error message.' }
       ]
     }
-    const response = e.throwException(2, referenceTable);
+    const response = e.throwAppException(2, referenceTable);
     expect(response).toHaveProperty('status',2);
     expect(response).toHaveProperty('type','refTable');
     expect(response).toHaveProperty('message','Unknown error code.');
@@ -53,8 +53,8 @@ describe('Validation apiExceptions.js', () => {
         { status: 1, message: 'Error message.' }
       ]
     }
-    const responseExistTable = e.throwException(0, referenceTable);
-    const responseUnknTable = e.throwException(0, {});
+    const responseExistTable = e.throwAppException(0, referenceTable);
+    const responseUnknTable = e.throwAppException(0, {});
     expect(responseUnknTable).toHaveProperty('status','X');
     expect(responseUnknTable).toHaveProperty('type','Unknown error type');
     expect(responseUnknTable).toHaveProperty('message','Unknown error code.');
