@@ -31,11 +31,11 @@ module.exports = {
       },
       value: {
         allowNull: false,
-        type: Sequelize.DECIMAL
+        type: Sequelize.FLOAT(14, 2) ,
       },
       client_monthly_income: {
         allowNull: true,
-        type: Sequelize.DECIMAL,
+        type: Sequelize.FLOAT(14, 2) ,
         defaultValue: 0.0
       },
       client_birthday: {
