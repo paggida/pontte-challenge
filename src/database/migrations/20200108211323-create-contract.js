@@ -29,13 +29,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.CHAR(11)
       },
-      value: {
+      contract_value: {
         allowNull: false,
-        type: Sequelize.FLOAT(14, 2) ,
+        type: Sequelize.FLOAT,
       },
       client_monthly_income: {
         allowNull: true,
-        type: Sequelize.FLOAT(14, 2) ,
+        type: Sequelize.FLOAT,
         defaultValue: 0.0
       },
       client_birthday: {
@@ -53,7 +53,7 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: null
       },
-      status: {
+      contract_step: {
         allowNull: false,
         type: Sequelize.INTEGER
       }
