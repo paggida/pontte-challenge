@@ -6,9 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     contract_value: DataTypes.FLOAT,
     client_monthly_income: DataTypes.FLOAT,
     client_birthday: DataTypes.DATEONLY,
-    client_marital_status: DataTypes.STRING,
+    client_marital_status_code: DataTypes.STRING,
     client_address: DataTypes.STRING,
-    contract_step: DataTypes.INTEGER
+    contract_step_code: DataTypes.INTEGER
   });
   return Contract;
 };
