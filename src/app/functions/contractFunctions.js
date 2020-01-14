@@ -6,7 +6,7 @@ module.exports = {
       return obj;
   },
   addStatusNewContract(obj={}) {
-    return ({...obj, contract_step_code: 0});
+    return ({...obj, contract_step_code: 1});
   },
   isRequiredFieldsCorrect(obj={}){
     return (_areRequiredFieldsExist(obj) && _areRequiredFieldsFilled(obj))

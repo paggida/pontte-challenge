@@ -21,9 +21,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      document_type: {
+      document_type_code: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       contract_code: {
         allowNull: false,
@@ -36,6 +36,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("contracts");
+    return queryInterface.dropTable("documents");
   }
 };
