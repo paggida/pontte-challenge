@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Documents = sequelize.define("Documents", {
-    file_name: DataTypes.STRING
+    file_name: DataTypes.CHAR(40)
   });
 
   Documents.associate = models => {
