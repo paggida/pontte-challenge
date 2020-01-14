@@ -1,10 +1,10 @@
 const request = require('supertest');
 const app = require('../../src/server');
 
-describe('Validation to endpoint "/listMaritalStatus"', () => {
+describe('Validation to endpoint "/listMaritalStatuses"', () => {
   it('should be able to list all the reference marital statuses', async () => {
     const {status, text} = await request(app)
-    .get('/listMaritalStatus');
+    .get('/listMaritalStatuses');
     const objResponse = JSON.parse(text)
 
     expect(status).toBe(200);
