@@ -3,9 +3,5 @@ module.exports = (sequelize, DataTypes) => {
     contract_step_definition: DataTypes.STRING,
   });
 
-  ContractSteps.associate = models => {
-    ContractSteps.belongsToMany(models.Contract, { foreignKey: 'contract_step_code' })
-  };
-
   return ContractSteps;
 };
