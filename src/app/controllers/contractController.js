@@ -29,10 +29,33 @@ module.exports = {
     return res.send(`route: update ref: ${id} / ${JSON.stringify(req.body)}`)
   },
   async uploadDocument(req, res) {
-    const { id } = req.params
+    const { id: contractId } = req.params
     const { type } = req.query
-    const { filename: doc } = req.file;
-    return res.send(`route: uploadDocument ref: ${id} / ${doc} / ${type}`)
+
+    // Validates parameter fill
+    if (!contractId || !type) return res.json(e.throwAppException(1, contractErrorTable))
+    const currentContract= await db.findById(contractId, Contract)
+    const {id: documentTypeId} = await db.findById(type, DocumentTypes)
+
+    const isExistingContract = !currentContract.id
+    const isExistingDocumentType = !documentTypeId
+    if (isExistingContract) return res.json(e.throwAppException(2, contractErrorTable))
+    if (isExistingDocumentType) return res.json(e.throwAppException(3, contractErrorTable))
+
+    if(!fnc.isContractEditable(currentContract)) return res.json(e.throwAppException(4, contractErrorTable))
+
+
+    // If the contract was still at an earlier stage update it
+    if(currentContract!==2){
+      const updateContract = fnc.advanceStepContract(currentContract)
+      await db.update(contractId, updateContract, Contract)
+    }
+    const newDocumentRecord = fnc.buildDocumentObj(req.file.filename, type, contractId)
+    return res.json(await db.insert(newDocumentRecord, Documents))
+
+    //Todo - Em caso de erro tem de apagar o arquivo
+    //Todo - Em caso de não enviar o arquivo
+    //Todo Caso de teste para sucesso
   },
   async Approval(req, res) {
     const { id } = req.params

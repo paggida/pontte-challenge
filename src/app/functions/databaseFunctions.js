@@ -29,7 +29,7 @@ module.exports = {
   async findById(id, model) {
     try{
         if(_isValidModel(model)){
-          return await model.findByPk(id)
+          return await model.findByPk(id) ||{}
         }else{
           return e.throwAppException(5, dbErrorTable)
         }

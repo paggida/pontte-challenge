@@ -48,7 +48,7 @@ describe('Delete function validation', () => {
     const { id: newId } = await db.insert(completeRecord, Contract)
     await db.delete(newId, Contract)
     const responseSearch = await db.findById(newId, Contract)
-    expect(responseSearch).toBeNull()
+    expect(responseSearch).toMatchObject({})
   });
   it('should not be able to delete a record in a unknown table', async () => {
     const response = await db.delete(1, ()=>{})
@@ -79,7 +79,7 @@ describe('FindById function validation', () => {
   });
   it('should not be able to find an unknown record in an existent table', async () => {
     const response = await db.findById(0, Contract);
-    expect(response).toBeNull();
+    expect(response).toMatchObject({})
   });
   it('should not be able to find a record in an unknown table', async () => {
     const response = await db.findById(1, ()=>{});

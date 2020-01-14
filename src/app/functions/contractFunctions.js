@@ -21,7 +21,7 @@ module.exports = {
     if(!contractObj.contract_step_code) return {}
     return {contract_step_code: ++contractObj.contract_step_code }
   },
-  buildDocumentObj(file_name, document_type_code, contract_code){
+  buildDocumentObj(file_name='', document_type_code, contract_code){
     return {file_name, document_type_code, contract_code}
   }
 };
