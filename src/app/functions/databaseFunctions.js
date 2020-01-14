@@ -51,6 +51,18 @@ module.exports = {
       return e.throwAppException(2, dbErrorTable)
     }
   },
+  async update(id, changedObj, model) {
+    try{
+        if(_isValidModel(model)){
+          return await model.update(changedObj, { where: { id } })
+        }else{
+          return e.throwAppException(5, dbErrorTable)
+        }
+    }
+    catch(err){
+      return e.throwAppException(3, dbErrorTable)
+    }
+  },
   async delete(id, model) {
     try{
         if(_isValidModel(model)){

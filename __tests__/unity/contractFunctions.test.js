@@ -59,3 +59,46 @@ describe('isRequiredFieldsCorrect function validation', () => {
   });
 });
 
+describe('isContractEditable function validation', () => {
+  it('should be able to edit contracts that have not been finalized', async () => {
+    const contract = {
+      contract_step_code: 1
+    };
+    const response = fnc.isContractEditable(contract)
+    expect(response).toBeTruthy()
+  });
+  it('should not be able to edit contracts that have been finalized', async () => {
+    const contract = {
+      contract_step_code: 3
+    };
+    const response = fnc.isContractEditable(contract)
+    expect(response).toBeFalsy()
+  });
+  it('should not be able to edit invalid contract object', async () => {
+    const response = fnc.isContractEditable({})
+    expect(response).toBeFalsy()
+  });
+});
+
+describe('advanceStepContract function validation', () => {
+  it('should be able to advance the step of valid contract object', async () => {
+    const contract = {
+      contract_step_code: 1
+    };
+    const response = fnc.advanceStepContract(contract)
+    expect(response).toHaveProperty('contract_step_code', 2)
+  });
+  it('should not be able to advance the step of invalid contract object', async () => {
+    const response = fnc.advanceStepContract({})
+    expect(response).toMatchObject({})
+  });
+});
+
+describe('buildDocumentObj function validation', () => {
+  it('should be able to return a document object', async () => {
+    const response = fnc.buildDocumentObj('imagem.png',1,2)
+    expect(response).toHaveProperty('file_name','imagem.png')
+    expect(response).toHaveProperty('document_type_code',1)
+    expect(response).toHaveProperty('contract_code',2)
+  });
+});

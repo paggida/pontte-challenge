@@ -1,4 +1,4 @@
-const { Contract, ContractSteps } = require('../models');
+const { Contract, ContractSteps, Documents, DocumentTypes } = require('../models');
 const fnc = require("../functions/contractFunctions");
 const db = require("../functions/databaseFunctions");
 const e = require("../Exceptions/apiExceptions");
