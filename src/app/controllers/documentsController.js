@@ -1,8 +1,8 @@
-const { DocumentType } = require('../models');
+const {  DocumentTypes } = require('../models');
 const db = require("../functions/databaseFunctions");
 
 module.exports = {
   async list(req, res) {
-    return res.send(`route: list`);
+    return res.json(await db.findAll(DocumentTypes));
   },
 };

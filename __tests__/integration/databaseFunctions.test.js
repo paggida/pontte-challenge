@@ -21,7 +21,7 @@ describe('Insert function validation', () => {
     expect(response).toHaveProperty('client_cpf', '99999999999');
     expect(response).toHaveProperty('contract_value', 1000.01);
   });
-  it('should not be able to add a new record in a nonexistent table', async () => {
+  it('should not be able to add a new record in a unknown table', async () => {
     const newRecord = {
       client_name: 'José',
       client_email: 'jose@ig.com.br',
@@ -31,7 +31,7 @@ describe('Insert function validation', () => {
     const completeRecord = contractFnc.addStatusNewContract(newRecord)
     const response = await db.insert(completeRecord, {})
     expect(response).toHaveProperty('status', 5);
-    expect(response).toHaveProperty('message', 'Nonexistent model.');
+    expect(response).toHaveProperty('message', 'Unknown model.');
     expect(response).toHaveProperty('type', 'database');
   });
 });
@@ -50,10 +50,10 @@ describe('Delete function validation', () => {
     const responseSearch = await db.findById(newId, Contract)
     expect(responseSearch).toBeNull()
   });
-  it('should not be able to delete a record in a nonexistent table', async () => {
+  it('should not be able to delete a record in a unknown table', async () => {
     const response = await db.delete(1, ()=>{})
     expect(response).toHaveProperty('status', 5);
-    expect(response).toHaveProperty('message', 'Nonexistent model.');
+    expect(response).toHaveProperty('message', 'Unknown model.');
     expect(response).toHaveProperty('type', 'database');
   });
 });
@@ -84,7 +84,7 @@ describe('FindById function validation', () => {
   it('should not be able to find a record in an unknown table', async () => {
     const response = await db.findById(1, ()=>{});
     expect(response).toHaveProperty('status', 5);
-    expect(response).toHaveProperty('message', 'Nonexistent model.');
+    expect(response).toHaveProperty('message', 'Unknown model.');
     expect(response).toHaveProperty('type', 'database');
   });
 });

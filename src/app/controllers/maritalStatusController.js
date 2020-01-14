@@ -3,6 +3,6 @@ const db = require("../functions/databaseFunctions");
 
 module.exports = {
   async list(req, res) {
-    return res.send(`route: list`);
+    return res.json(await db.findAll(MaritalStatus));
   },
 };

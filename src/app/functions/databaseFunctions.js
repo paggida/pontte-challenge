@@ -14,10 +14,35 @@ module.exports = {
       return e.throwAppException(1, dbErrorTable)
     }
   },
+  async findAll(model) {
+    try{
+        if(_isValidModel(model)){
+          return await model.findAll()
+        }else{
+          return e.throwAppException(5, dbErrorTable)
+        }
+    }
+    catch(err){
+      return e.throwAppException(2, dbErrorTable)
+    }
+  },
   async findById(id, model) {
     try{
         if(_isValidModel(model)){
           return await model.findByPk(id)
+        }else{
+          return e.throwAppException(5, dbErrorTable)
+        }
+    }
+    catch(err){
+      return e.throwAppException(2, dbErrorTable)
+    }
+  },
+  async findByfield(value, field, model) {
+    try{
+        if(_isValidModel(model)){
+          const filterObj = JSON.parse(`{"${field}":"${value}"}`)
+          return await model.findAll({ where: filterObj})
         }else{
           return e.throwAppException(5, dbErrorTable)
         }

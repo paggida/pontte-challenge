@@ -6,15 +6,15 @@ const contractErrorTable = require("../Exceptions/contractExceptions");
 
 module.exports = {
   async listSteps(req, res) {
-    return res.send(`route: listSteps`);
+    return res.json(await db.findAll(ContractSteps));
   },
   async listById(req, res) {
     const { id } = req.params;
-    return res.send(`route: listById ref: ${id}`);
+    return res.json(await db.findById(id, Contract));
   },
   async listByCpf(req, res) {
     const { cpf } = req.params;
-    return res.send(`route: listByCpf ref: ${cpf}`);
+    return res.json(await db.findByfield(cpf,'client_cpf', Contract));
   },
   async creation(req, res) {
     const cleanBody = fnc.removeInvalidFields(req.body);
