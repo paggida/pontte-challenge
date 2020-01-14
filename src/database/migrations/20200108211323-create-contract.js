@@ -43,9 +43,9 @@ module.exports = {
         type: Sequelize.DATEONLY,
         defaultValue: null
       },
-      client_marital_status: {
+      client_marital_status_code: {
         allowNull: true,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         defaultValue: null
       },
       client_address: {
@@ -53,7 +53,7 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: null
       },
-      contract_step: {
+      contract_step_code: {
         allowNull: false,
         type: Sequelize.INTEGER
       }

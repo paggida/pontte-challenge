@@ -22,7 +22,7 @@ describe('AddStatusNewContract function validation', () => {
       field04: false,
     };
     const responseObj = fnc.addStatusNewContract(object)
-    expect(responseObj).toHaveProperty('contract_step',0);
+    expect(responseObj).toHaveProperty('contract_step_code',1);
   });
 });
 

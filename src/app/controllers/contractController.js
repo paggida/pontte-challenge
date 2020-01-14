@@ -1,10 +1,13 @@
-const { Contract } = require('../models');
+const { Contract, ContractSteps } = require('../models');
 const fnc = require("../functions/contractFunctions");
 const db = require("../functions/databaseFunctions");
 const e = require("../Exceptions/apiExceptions");
 const contractErrorTable = require("../Exceptions/contractExceptions");
 
 module.exports = {
+  async listSteps(req, res) {
+    return res.send(`route: listSteps`);
+  },
   async listById(req, res) {
     const { id } = req.params;
     return res.send(`route: listById ref: ${id}`);

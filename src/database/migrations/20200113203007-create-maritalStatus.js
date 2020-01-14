@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("documents", {
+    return queryInterface.createTable("maritalStatus", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -17,25 +17,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      file_name: {
+      marital_status_name: {
         allowNull: false,
-        type: Sequelize.CHAR(40)
+        type: Sequelize.CHAR(15)
       },
-      document_type_code: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      contract_code: {
-        allowNull: false,
-        references: { model: 'contracts', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        type: Sequelize.INTEGER
-      }
     });
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("documents");
+    return queryInterface.dropTable("maritalStatus");
   }
 };

@@ -3,7 +3,12 @@ const routes = express.Router();
 const multerConfig = require('./config/multer')
 const upload = require('multer')(multerConfig)
 const ctrlContract = require("./app/controllers/contractController");
+const ctrlMaritalStatus = require("./app/controllers/maritalStatusController");
+const ctrlDocuments= require("./app/controllers/documentsController");
 
+routes.get("/listDocumentTypes/", ctrlDocuments.list);
+routes.get("/listMaritalStatus/", ctrlMaritalStatus.list);
+routes.get("/contract/listSteps/", ctrlContract.listSteps);
 routes.get("/contract/listById/:id", ctrlContract.listById);
 routes.get("/contract/listByCpf/:cpf", ctrlContract.listByCpf);
 routes.post("/contract/new", ctrlContract.creation);
