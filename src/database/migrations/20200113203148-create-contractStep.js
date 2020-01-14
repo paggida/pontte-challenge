@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("contractSteps", {
+    return queryInterface.createTable("contract_steps", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -19,12 +19,12 @@ module.exports = {
       },
       contract_step_definition: {
         allowNull: false,
-        type: Sequelize.CHAR(20)
+        type: Sequelize.STRING(20)
       },
     });
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("contractSteps");
+    return queryInterface.dropTable("contract_steps");
   }
 };

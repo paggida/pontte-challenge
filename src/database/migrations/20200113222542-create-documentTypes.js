@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("documentTypes", {
+    return queryInterface.createTable("document_types", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -19,12 +19,12 @@ module.exports = {
       },
       type_name: {
         allowNull: false,
-        type: Sequelize.CHAR(20)
+        type: Sequelize.STRING(20)
       }
     });
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("documentTypes");
+    return queryInterface.dropTable("document_types");
   }
 };

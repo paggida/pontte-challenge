@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("maritalStatus", {
+    return queryInterface.createTable("marital_status", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -19,12 +19,12 @@ module.exports = {
       },
       marital_status_name: {
         allowNull: false,
-        type: Sequelize.CHAR(15)
+        type: Sequelize.STRING(15)
       },
     });
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("maritalStatus");
+    return queryInterface.dropTable("marital_status");
   }
 };

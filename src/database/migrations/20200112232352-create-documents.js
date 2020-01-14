@@ -19,7 +19,7 @@ module.exports = {
       },
       file_name: {
         allowNull: false,
-        type: Sequelize.CHAR(40)
+        type: Sequelize.STRING(40)
       },
       document_type_code: {
         allowNull: false,
