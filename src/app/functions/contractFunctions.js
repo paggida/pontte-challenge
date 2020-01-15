@@ -1,3 +1,6 @@
+const { Contract, Documents} = require('../models');
+const db = require("../functions/databaseFunctions");
+
 module.exports = {
    removeInvalidFields(contractObj) {
       for (let key in contractObj) {
@@ -16,10 +19,10 @@ module.exports = {
     if(!contractObj.contract_step_code) return false
     return contractObj.contract_step_code<=2;
   },
-  advanceStepContract(contractObj){
+  advanceToUploadStep(contractObj){
     // Validates if it's an invalid object
     if(!contractObj.contract_step_code) return {}
-    return {contract_step_code: contractObj.contract_step_code+1 }
+    return {contract_step_code: 2 }
   },
   buildDocumentObj(file_name='', document_type_code, contract_code){
     return {file_name, document_type_code, contract_code}
