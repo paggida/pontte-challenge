@@ -7,6 +7,7 @@ module.exports = {
       { contract_step_definition: 'Criação', created_at: now, updated_at: now},
       { contract_step_definition: 'Upload de imagens', created_at: now, updated_at: now},
       { contract_step_definition: 'Aprovação' , created_at: now, updated_at: now},
+      { contract_step_definition: 'Reprovação' , created_at: now, updated_at: now}
     ], {});
   },
 
