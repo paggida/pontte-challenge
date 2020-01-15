@@ -23,6 +23,12 @@ module.exports = {
   },
   buildDocumentObj(file_name='', document_type_code, contract_code){
     return {file_name, document_type_code, contract_code}
+  },
+  removeUnauthorizedFields(contractObj){
+    const {client_name, client_email, client_cpf, contract_value, client_monthly_income,
+            client_birthday, client_marital_status_code, client_address} = contractObj
+    return {client_name, client_email, client_cpf, contract_value, client_monthly_income,
+      client_birthday, client_marital_status_code, client_address}
   }
 };
 _areRequiredFieldsExist=(contractObj)=>{

@@ -194,3 +194,98 @@ describe('Validation to endpoint "/contract/sendDocument"', () => {
     expect(response.body).toHaveProperty('message','Required fields not filled.');
   });
 });
+
+describe('Validation to endpoint "/contract/update"', () => {
+  afterAll(async () => {
+    await Contract.destroy({ where: { client_cpf: '99999999999' } })
+  });
+  it('should not be able to update an invalid contract', async () => {
+    const response = await request(app)
+    .put('/contract/update/0')
+    .send({
+      client_name: 'José',
+      client_email: 'jose@ig.com.br',
+      client_cpf: '99999999999',
+      contract_value: 1000.01,
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('status',2);
+    expect(response.body).toHaveProperty('message','Unknown contract.');
+  });
+  it('should not be able to update a contract with a unknown marital status', async () => {
+    const contract = await request(app)
+    .post('/contract/new')
+    .send({
+      client_name: 'José',
+      client_email: 'jose@ig.com.br',
+      client_cpf: '99999999999',
+      contract_value: 1000.01,
+      client_marital_status_code: 1
+    });
+    expect(contract.status).toBe(200);
+    expect(contract.body).toHaveProperty('id');
+
+    const response = await request(app)
+    .put(`/contract/update/${contract.body.id}`)
+    .send({
+      client_marital_status_code: 99
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('status',5);
+    expect(response.body).toHaveProperty('message','Unknown marital status.');
+  });
+  it('should not be able to update a finalized contract', async () => {
+    const contract = await request(app)
+    .post('/contract/new')
+    .send({
+      client_name: 'José',
+      client_email: 'jose@ig.com.br',
+      client_cpf: '99999999999',
+      contract_value: 1000.01,
+      client_marital_status_code: 1
+    });
+    expect(contract.status).toBe(200);
+    expect(contract.body).toHaveProperty('id');
+
+    // Terminate the contract
+    const terminateStatus = {contract_step_code: 3 }
+    const where = { id: contract.body.id }
+    await Contract.update(terminateStatus, { where })
+
+    const response = await request(app)
+    .put(`/contract/update/${contract.body.id}`)
+    .send({
+      client_marital_status_code: 2
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('status',4);
+    expect(response.body).toHaveProperty('message','Contract not editable.');
+  });
+  it('should be able to update a contract', async () => {
+    const contract = await request(app)
+    .post('/contract/new')
+    .send({
+      client_name: 'José',
+      client_email: 'jose@ig.com.br',
+      client_cpf: '99999999999',
+      contract_value: 1000.01,
+      client_marital_status_code: 1
+    });
+    expect(contract.status).toBe(200);
+    expect(contract.body).toHaveProperty('id');
+
+    const response = await request(app)
+    .put(`/contract/update/${contract.body.id}`)
+    .send({
+      contract_value: 5000,
+      client_marital_status_code: 2
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('contract_value',5000);
+    expect(response.body).toHaveProperty('client_marital_status_code',2);
+  });
+});

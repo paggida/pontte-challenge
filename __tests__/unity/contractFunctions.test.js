@@ -102,3 +102,29 @@ describe('buildDocumentObj function validation', () => {
     expect(response).toHaveProperty('contract_code',2)
   });
 });
+
+describe('removeUnauthorizedFields function validation', () => {
+  it('should be able to return only authorized Fields for update', async () => {
+    const contract = {
+      client_name:1,
+      client_email:2,
+      client_cpf:3,
+      contract_value:4,
+      client_monthly_income:5,
+      client_birthday:6,
+      client_marital_status_code:7,
+      client_address:8,
+      fakeField:9
+    };
+    const response = fnc.removeUnauthorizedFields('imagem.png',1,2)
+    expect(response).toHaveProperty('client_name')
+    expect(response).toHaveProperty('client_email')
+    expect(response).toHaveProperty('client_cpf')
+    expect(response).toHaveProperty('contract_value')
+    expect(response).toHaveProperty('client_monthly_income')
+    expect(response).toHaveProperty('client_birthday')
+    expect(response).toHaveProperty('client_marital_status_code')
+    expect(response).toHaveProperty('client_address')
+    expect(response.fakeField).toBeFalsy()
+  });
+});
