@@ -64,7 +64,7 @@ module.exports = {
 
     // If the contract was still at an earlier stage update it
     if(currentContract!==2){
-      const updateContract = fnc.advanceStepContract(currentContract)
+      const updateContract = fnc.advanceToUploadStep(currentContract)
       await db.update(contractId, updateContract, Contract)
     }
     if(!req.file) return res.json(e.throwAppException(1, contractErrorTable))
@@ -75,6 +75,20 @@ module.exports = {
   async Approval(req, res) {
     const { id } = req.params
     const { approval } = req.body
-    return res.send(`route: Approval ref: ${id} / ${approval}`)
+
+    const currentContract= await db.findById(id, Contract)
+    const isExistingContract = !currentContract.id
+    if (isExistingContract) return res.json(e.throwAppException(2, contractErrorTable))
+    if(!fnc.isContractEditable(currentContract)) return res.json(e.throwAppException(4, contractErrorTable))
+
+    const documentsUpload = await db.findByfield(id,'contract_code', Documents);
+    const IsRequiredDocumentsUpload = documentsUpload.find(({document_type_code})=> document_type_code===1)
+    if(!IsRequiredDocumentsUpload) return res.json(e.throwAppException(6, contractErrorTable))
+
+    // Set the approved status or the disapproved status
+    const finalizedContract = { contract_step_code : (approval)? 3 : 4}
+    await db.update(id, finalizedContract, Contract)
+    const response = await db.findById(id, Contract)
+    return res.json(response)
   }
 };

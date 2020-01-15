@@ -80,16 +80,16 @@ describe('isContractEditable function validation', () => {
   });
 });
 
-describe('advanceStepContract function validation', () => {
+describe('advanceToUploadStep function validation', () => {
   it('should be able to advance the step of valid contract object', async () => {
     const contract = {
       contract_step_code: 1
     };
-    const response = fnc.advanceStepContract(contract)
+    const response = fnc.advanceToUploadStep(contract)
     expect(response).toHaveProperty('contract_step_code', 2)
   });
   it('should not be able to advance the step of invalid contract object', async () => {
-    const response = fnc.advanceStepContract({})
+    const response = fnc.advanceToUploadStep({})
     expect(response).toMatchObject({})
   });
 });

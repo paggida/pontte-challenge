@@ -5,6 +5,7 @@ module.exports = {
     { status: 2, message: 'Unknown contract.' },
     { status: 3, message: 'Unknown document type.' },
     { status: 4, message: 'Contract not editable.' },
-    { status: 5, message: 'Unknown marital status.' }
+    { status: 5, message: 'Unknown marital status.' },
+    { status: 6, message: 'Required information from this step has not yet been submitted.' }
   ]
 };
