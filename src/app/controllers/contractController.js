@@ -44,18 +44,15 @@ module.exports = {
 
     if(!fnc.isContractEditable(currentContract)) return res.json(e.throwAppException(4, contractErrorTable))
 
-
     // If the contract was still at an earlier stage update it
     if(currentContract!==2){
       const updateContract = fnc.advanceStepContract(currentContract)
       await db.update(contractId, updateContract, Contract)
     }
+    if(!req.file) return res.json(e.throwAppException(1, contractErrorTable))
+
     const newDocumentRecord = fnc.buildDocumentObj(req.file.filename, type, contractId)
     return res.json(await db.insert(newDocumentRecord, Documents))
-
-    //Todo - Em caso de erro tem de apagar o arquivo
-    //Todo - Em caso de não enviar o arquivo
-    //Todo Caso de teste para sucesso
   },
   async Approval(req, res) {
     const { id } = req.params

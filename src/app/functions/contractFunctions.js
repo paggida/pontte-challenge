@@ -19,7 +19,7 @@ module.exports = {
   advanceStepContract(contractObj){
     // Validates if it's an invalid object
     if(!contractObj.contract_step_code) return {}
-    return {contract_step_code: ++contractObj.contract_step_code }
+    return {contract_step_code: contractObj.contract_step_code+1 }
   },
   buildDocumentObj(file_name='', document_type_code, contract_code){
     return {file_name, document_type_code, contract_code}

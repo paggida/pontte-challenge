@@ -4,3 +4,4 @@ coverage/
 *.lock
 *.docx
 uploads/*.png
+uploads/*.jpg

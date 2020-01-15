@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../../src/server');
-const { Contract } = require('../../src/app/models');
+const { Contract} = require('../../src/app/models');
 
 describe('Validation to endpoint "/contract/listSteps"', () => {
   it('should be able to list all the reference contract steps', async () => {
@@ -174,7 +174,23 @@ describe('Validation to endpoint "/contract/sendDocument"', () => {
     expect(response.body).toHaveProperty('message','Contract not editable.');
   });
   it('should not be able to send a document from unspecified location', async () => {
-  });
-  it('should be able to send a document with valid type for an active contract', async () => {
+    const createResponse = await request(app)
+    .post('/contract/new')
+    .send({
+      client_name: 'José',
+      client_email: 'jose@ig.com.br',
+      client_cpf: '99999999999',
+      contract_value: 1000.01,
+    });
+    expect(createResponse.status).toBe(200);
+    expect(createResponse.body.status).toBeFalsy();
+    const {id: contractId} = createResponse.body
+
+    const response = await request(app)
+    .post(`/contract/sendDocument/${contractId}?type=1`);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('status',1);
+    expect(response.body).toHaveProperty('message','Required fields not filled.');
   });
 });
